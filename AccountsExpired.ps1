@@ -7,10 +7,9 @@ $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogo
 $ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,AccountExpirationDate -AutoSize | Out-String
 
 $menu=@"
-1 Show info about a computer
-2 Show accounts which have expired
-3 Show accounts which are expiring soon
-4 Show accounts which have expired and expiring soon
+1 Show accounts which have expired 
+2 Show accounts which are expiring soon
+3 Show accounts which have expired and expiring soon
 Q Quit
  
 Select a task by number or Q to quit
@@ -20,14 +19,8 @@ $r = Read-Host $menu
 
 
 Switch ($r) {
-"1" {
-    Write-Host "Getting system information" -ForegroundColor Green
-    #insert your code here
-}
-
-
 #Task two, ask for expired only
-"2" {
+"1" {
     if ($ExpiredAccounts -eq ""){
 Write-Host "No accounts have expired" -ForegroundColor Green
 }
@@ -37,7 +30,7 @@ Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
 }}
  
-"3" {
+"2" {
 if ($ExpiringAccounts -eq ""){
 Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
 else
@@ -47,7 +40,7 @@ Write-Host "$ExpiringAccounts"
 }
 
 }
-"4"{
+"3"{
 if ($ExpiredAccounts -eq ""){
 Write-Host "No accounts have expired" -ForegroundColor Green
 }
@@ -58,7 +51,7 @@ Write-Host "$ExpiredAccounts"
 }
 
 if ($ExpiringAccounts -eq ""){
-Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
+Write-Host "No accounts are going to expire within the next $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
 else
 {
 Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
