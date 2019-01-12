@@ -1,22 +1,53 @@
 ﻿#Task one Variables
-
-
-#Task one.a ask for variables
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Please tell me how many days until the account expires you would like to see"
+$ExpiringAccountDaysRequestedDate = (Get-Date)
 
 
-#Task one.b menu
-
-cls
-sleep 1
-#Task two, ask for expired only
 $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
-
-#Task three show expired only
 $ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,AccountExpirationDate -AutoSize | Out-String
 
-cls
-#Task four show expired and expiring
+$menu=@"
+1 Show info about a computer
+2 Show accounts which have expired
+3 Show accounts which are expiring soon
+4 Show accounts which have expired and expiring soon
+Q Quit
+ 
+Select a task by number or Q to quit
+"@
+
+$r = Read-Host $menu
+
+
+Switch ($r) {
+"1" {
+    Write-Host "Getting system information" -ForegroundColor Green
+    #insert your code here
+}
+
+
+#Task two, ask for expired only
+"2" {
+    if ($ExpiredAccounts -eq ""){
+Write-Host "No accounts have expired" -ForegroundColor Green
+}
+else
+{
+Write-Host "The below accounts have expired" -ForegroundColor Magenta
+Write-Host "$ExpiredAccounts"
+}}
+ 
+"3" {
+if ($ExpiringAccounts -eq ""){
+Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
+else
+{
+Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
+Write-Host "$ExpiringAccounts"
+}
+
+}
+"4"{
 if ($ExpiredAccounts -eq ""){
 Write-Host "No accounts have expired" -ForegroundColor Green
 }
@@ -26,7 +57,6 @@ Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
 }
 
-
 if ($ExpiringAccounts -eq ""){
 Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
 else
@@ -34,3 +64,26 @@ else
 Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
 }
+}
+ 
+"Q" {
+    Write-Host "Quitting" -ForegroundColor Green
+}
+ 
+default {
+    Write-Host "I don't understand what you want to do." -ForegroundColor Yellow
+ }
+} #end switch
+
+
+
+
+
+
+
+
+
+
+
+
+#Task four show expired and expiring
