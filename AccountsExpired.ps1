@@ -67,16 +67,3 @@ default {
     Write-Host "I don't understand what you want to do." -ForegroundColor Yellow
  }
 } #end switch
-
-
-
-
-
-
-
-
-
-
-
-
-#Task four show expired and expiring
