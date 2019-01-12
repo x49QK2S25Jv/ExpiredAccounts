@@ -12,24 +12,21 @@ sleep 1
 #Task two, ask for expired only
 $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 
-
 #Task three show expired only
 $ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name -AutoSize | Out-String
 
 
 #Task four show expired and expiring
-if ($ExpiredAccounts -eq $null){
-Write-Host "No accounts have expired" -ForegroundColor Green
-}
-else
-{
+if ($ExpiredAccounts -ne $null){
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
 }
-
-
-if ($ExpiredAccounts -eq $null)
+else
 {
+Write-Host "No accounts have expired" -ForegroundColor Green
+}
+
+if ($ExpiredAccounts -eq $null){
 Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested" day/s -ForegroundColor Green}
 else
 {
