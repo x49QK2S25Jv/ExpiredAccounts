@@ -25,41 +25,43 @@ else
 {
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
-    }
+    }  
         }
- 
 "2" {
 $DaysBack = Read-host "How many days forward to check"
 $DaysBackDate = (Get-Date).AddDays("$DaysBack")
-$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
+$ExpiringAccounts = Search-ADAccount -AccountExpiring -TimeSpan $DaysBack | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 if ($ExpiringAccounts -eq ""){
-$ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next X day/s"
-else{
 Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested day/s" -ForegroundColor Green
-else
-}}
+}
+else{
 Write-Host "The below accounts are expiring within $DaysBack days" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
+}
     }
+
+
+
 "3"{
-if ($ExpiredAccounts -eq ""){
-$ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next"
+    if ($ExpiredAccounts -eq ""){
 Write-Host "No accounts have expired" -ForegroundColor Green
 }
 else
 {
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
-}
+$DaysBack = Read-host "How many days forward to check"
+$DaysBackDate = (Get-Date).AddDays("$DaysBack")
+$ExpiringAccounts = Search-ADAccount -AccountExpiring -TimeSpan $DaysBack | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 if ($ExpiringAccounts -eq ""){
-Write-Host "No accounts are going to expire within the next $ExpiringAccountDaysRequested day/s"}
-else
-{
-Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
+Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested day/s" -ForegroundColor Green
+}
+else{
+Write-Host "The below accounts are expiring within $DaysBack days" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
-}
-}
- 
+    }
+        }
+            } 
 "Q" {
     Write-Host "Quitting" -ForegroundColor Green
 }
