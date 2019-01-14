@@ -29,9 +29,9 @@ Write-Host "$ExpiredAccounts"
         }
  
 "2" {
-$DaysBack = Read-host "Please specific how many backs back to date"
-$DaysBackDate = (Get-Date).AddDays("$DaysBack.00:00:00")
-$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
+$DaysBack = Read-host "How many days back to check"
+$ExpiringAccounts = Search-ADAccount  -AccountExpiring -TimeSpan "$DaysBack.00:00:00" | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
+
 if ($ExpiringAccounts -eq ""){
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next X day/s"
 else{
