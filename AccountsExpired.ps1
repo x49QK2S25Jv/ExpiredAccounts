@@ -1,15 +1,8 @@
 ﻿#Task one Variables
-$CurrentDate = (Get-Date -Format g)
-$Days = if ($CurrentDate -le 2) {
-Out-String "day"
-}
-else{
-Out-String "days"
-}
-
-
+$TodaysDate = (Get-Date -Format dd/MM/yyyy)
+cls
 $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
-$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,AccountExpirationDate -AutoSize | Out-String
+$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 
 $menu=@"
 1 Show accounts which have expired 
@@ -37,8 +30,19 @@ Write-Host "$ExpiredAccounts"
  
 "2" {
 if ($ExpiringAccounts -eq ""){
-$ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next"
-Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested day/s" -ForegroundColor Green
+$DateRequestedMsg = Write-host "Please enter date as dd/MM/yyyy"
+
+
+$ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next $Days"
+$Days = if ($CurrentDate -le $TodaysDate -and $CurrentDate -le 2) {
+Write-Host = "day" | Out-String
+}
+else{
+Write-Host = "days" | Out-String
+}
+
+
+Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested $Days" -ForegroundColor Green
 else
 {
 Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
