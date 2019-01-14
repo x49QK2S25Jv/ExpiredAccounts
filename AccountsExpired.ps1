@@ -25,14 +25,16 @@ else
 {
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
-}}
+    }
+        }
  
 "2" {
-$DateRequestedMsg = Write-host "Please back date as dd/MM/yyyy" -ForegroundColor Red
+$DaysBack = Read-host "Please specific how many backs back to date"
+$DaysBackDate = (Get-Date).AddDays(-$DaysBack)
 if ($ExpiringAccounts -eq ""){
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next X day/s"
 else{
-Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested $Days" -ForegroundColor Green
+Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested day/s" -ForegroundColor Green
 else
 {
 Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
@@ -67,4 +69,6 @@ Write-Host "$ExpiringAccounts"
 default {
     Write-Host "I don't understand what you want to do." -ForegroundColor Yellow
  }
-} #end switch
+    }#end switch
+
+    (Get-Date).AddDays(-30)
