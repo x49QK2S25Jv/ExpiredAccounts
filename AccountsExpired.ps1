@@ -7,7 +7,6 @@ $menu=@"
 2 Show accounts which are expiring soon
 3 Show accounts which have expired and expiring soon
 4 Show accounts which have expired and expiring soon in AD OU
-Q Quit
 Select a task by number or Q to quit
 "@
 
@@ -80,12 +79,13 @@ Write-Host "$ExpiringAccounts"
     }
         }
             } 
-"Q" {
-    Write-Host "Quitting" -ForegroundColor Green
-    }
- 
 default {
     Write-Host "I don't understand what you want to do." -ForegroundColor Yellow
+    }
+"Q" {
+    Write-Host "Closing" -ForegroundColor Green
+    Sleep 1
+    Exit
     }
         }}#end switch
 until ($response -eq "q")
