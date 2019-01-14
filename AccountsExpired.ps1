@@ -2,7 +2,7 @@
 $TodaysDate = (Get-Date -Format dd/MM/yyyy)
 Clear-Host
 $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
-$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
+
 
 #Write-Host (Script is not required to be run as "administrator" or domain admin) -ForegroundColor Green
 $menu=@"
@@ -30,19 +30,17 @@ Write-Host "$ExpiredAccounts"
  
 "2" {
 $DaysBack = Read-host "Please specific how many backs back to date"
-$DaysBackDate = (Get-Date).AddDays(-$DaysBack)
+$DaysBackDate = (Get-Date).AddDays("$DaysBack.00:00:00")
+$ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 if ($ExpiringAccounts -eq ""){
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next X day/s"
 else{
 Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested day/s" -ForegroundColor Green
 else
-{
+}}
 Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
     }
-        }
-            }
-                }
 "3"{
 if ($ExpiredAccounts -eq ""){
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next"
@@ -70,5 +68,3 @@ default {
     Write-Host "I don't understand what you want to do." -ForegroundColor Yellow
  }
     }#end switch
-
-    (Get-Date).AddDays(-30)
