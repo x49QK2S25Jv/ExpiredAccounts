@@ -3,7 +3,6 @@ $TodaysDate = (Get-Date -Format dd/MM/yyyy)
 Clear-Host
 $ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 $ExpiringAccounts = Search-ADAccount -AccountExpiring | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
-}
 
 Write-Host "Script is not required to be run as"administrator" or domain admin" -ForegroundColor Green
 $menu=@"
@@ -11,7 +10,6 @@ $menu=@"
 2 Show accounts which are expiring soon
 3 Show accounts which have expired and expiring soon
 Q Quit
- 
 Select a task by number or Q to quit
 "@
 $r = Read-Host $menu
