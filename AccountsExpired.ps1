@@ -39,7 +39,8 @@ Write-Host "The below accounts are expiring soon" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
     }
         }
-            } 
+            }
+                }
 "3"{
 if ($ExpiredAccounts -eq ""){
 $ExpiringAccountDaysRequested = Read-Host -Prompt "Show accounts which will expire in the next"
@@ -50,7 +51,6 @@ else
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
 Write-Host "$ExpiredAccounts"
 }
-
 if ($ExpiringAccounts -eq ""){
 Write-Host "No accounts are going to expire within the next $ExpiringAccountDaysRequested day/s"}
 else
