@@ -1,7 +1,7 @@
 ﻿#Task one Variables
 $TodaysDate = (Get-Date -Format dd/MM/yyyy)
 Clear-Host
-$ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
+
 
 
 #Write-Host (Script is not required to be run as "administrator" or domain admin) -ForegroundColor Green
@@ -24,6 +24,7 @@ Write-Host "No accounts have expired" -ForegroundColor Green
 else
 {
 Write-Host "The below accounts have expired" -ForegroundColor Magenta
+$ExpiredAccounts = Search-ADAccount -AccountExpired | Format-Table Name,LastLogonDate,AccountExpirationDate -AutoSize | Out-String
 Write-Host "$ExpiredAccounts"
     }  
         }
@@ -37,11 +38,8 @@ Write-Host "No accounts are going to expire within $ExpiringAccountDaysRequested
 else{
 Write-Host "The below accounts are expiring within $DaysBack days" -ForegroundColor Magenta
 Write-Host "$ExpiringAccounts"
-}
     }
-
-
-
+        }
 "3"{
     if ($ExpiredAccounts -eq ""){
 Write-Host "No accounts have expired" -ForegroundColor Green
