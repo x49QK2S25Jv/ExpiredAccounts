@@ -7,7 +7,7 @@ Shows a list of AD accounts which have already expired with last login date and 
 ![WebsiteURL](https://github.com/x49QK2S25Jv/ExpiredAccounts/blob/master/Readme/Option1.JPG)
 
 Option 2
-Shows AD accounts which will expire within a XX days, enter a date to complete search. Example below shows 60 days 
+Shows AD accounts which will expire within a XX days, enter a date to complete search. Example below shows 60 days
 ![WebsiteURL](https://github.com/x49QK2S25Jv/ExpiredAccounts/blob/master/Readme/Option2.JPG)
 
 Option 3
